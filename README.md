@@ -3,12 +3,12 @@
 
 ## 設定方法
 
-1. `SERVICE_ACCOUNT_PATH` にサービスアカウントのキー情報ファイルを指定する。
+1. 環境変数に `SERVICE_ACCOUNT_FILE_PATH` を追加して、サービスアカウントのキー情報ファイルのパスを指定する。
 2. `LOCAL_FOLDER_PATH` にアップロードしたいファイルが格納されているフォルダのパスを指定する。
 3. `GOOGLE_DRIVE_FOLDER_ID` にアップロード先のGoogle DriveのフォルダIDを指定する。
 
+main.py
 ```py
-SERVICE_ACCOUNT_PATH = "YOUR_SERCICE_ACCOUNT_JSON_FILE_PATH"
 LOCAL_FOLDER_PATH = "YOUR_LOCAL_FOLDER_PATH"
 GOOGLE_DRIVE_FOLDER_ID = "YOUR_GOOGLE_DRIVE_FOLDER_ID"
 ```
