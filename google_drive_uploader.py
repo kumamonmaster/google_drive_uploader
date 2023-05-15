@@ -1,4 +1,4 @@
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict
 import glob
 import os
 
@@ -6,30 +6,12 @@ from pydrive2.auth import GoogleAuth
 from pydrive2.drive import GoogleDrive
 from oauth2client.service_account import ServiceAccountCredentials
 
+from upload_file_info import UploadFileInfo, MetaData, Parents
+
 
 SERVICE_ACCOUNT_PATH = "service_account.json"
 LOCAL_FOLDER_PATH = r"C:\Users\kuma\Downloads\test"
 GOOGLE_DRIVE_FOLDER_ID = "1gakGiYh_x6G34k_D9CgvBtKTl01B2Nt2"
-
-
-@dataclass
-class Parents:
-    id: str = field(init=False)
-
-    def __post_init__(self):
-        self.id = GOOGLE_DRIVE_FOLDER_ID
-
-
-@dataclass(frozen=True)
-class MetaData:
-    title: str
-    parents: list[Parents]
-
-
-@dataclass
-class UploadFileInfo:
-    path: str
-    metadata: MetaData
 
 
 def create_google_drive() -> GoogleDrive:
@@ -53,7 +35,7 @@ def get_upload_files() -> list[UploadFileInfo]:
         raise FileNotFoundError(f"アップロード対象ディレクトリ内のファイルが0件でした。LOCAL_FOLDER_PATH: {LOCAL_FOLDER_PATH}")
 
     for file in files:
-        upload_files.append(UploadFileInfo(file, MetaData(os.path.basename(file), [Parents()])))
+        upload_files.append(UploadFileInfo(file, MetaData(os.path.basename(file), [Parents(GOOGLE_DRIVE_FOLDER_ID)])))
 
     return upload_files
 
