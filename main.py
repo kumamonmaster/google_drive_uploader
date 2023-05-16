@@ -16,7 +16,7 @@ def get_upload_files() -> list[UploadFileInfo]:
     if not os.path.isdir(LOCAL_FOLDER_PATH):
         raise FileNotFoundError(f"アップロード対象のローカルディレクトリが存在しません。LOCAL_FOLDER_PATH: {LOCAL_FOLDER_PATH}")
 
-    files = glob.glob(f"{LOCAL_FOLDER_PATH}\*.csv")
+    files = glob.glob(os.path.join(LOCAL_FOLDER_PATH, "*.csv"))
     if not files:
         raise FileNotFoundError(f"アップロード対象ディレクトリ内のファイルが0件でした。LOCAL_FOLDER_PATH: {LOCAL_FOLDER_PATH}")
 
