@@ -1,6 +1,8 @@
 import glob
 import os
 
+import send2trash
+
 from google_drive_client import GoogleDriveClient
 from upload_file_info import UploadFileInfo, MetaData, Parents
 
@@ -32,6 +34,7 @@ try:
     upload_files = get_upload_files()
     for upload_file in upload_files:
         google_drive.upload_file(upload_file)
+        send2trash.send2trash(upload_file.path)
 
 except FileNotFoundError as e:
     print(e)
