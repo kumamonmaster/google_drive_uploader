@@ -31,10 +31,18 @@ def get_upload_files() -> list[UploadFileInfo]:
 google_drive = GoogleDriveClient()
 
 try:
+    print("指定のGoogleDriveフォルダ内のファイルを削除します")
+    google_drive.delete_file(GOOGLE_DRIVE_FOLDER_ID)
+    print("削除完了")
+
+    # GoogleDriveにアップロードするロカールファイルの一覧を取得する
     upload_files = get_upload_files()
+
+    print("指定のローカルフォルダ内のファイルをGoogleDriveにアップロードします")
     for upload_file in upload_files:
         google_drive.upload_file(upload_file)
         send2trash.send2trash(upload_file.path)
+    print("アップロード完了")
 
 except FileNotFoundError as e:
     print(e)
